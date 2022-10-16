@@ -14,3 +14,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+app/Helpers/ResponseFormatter.php
+app/Http/Controllers/API/CompanyController.php
+routes/api.php
