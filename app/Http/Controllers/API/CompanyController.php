@@ -42,7 +42,6 @@ class CompanyController extends Controller
         if ($name) {
 
             $companies->where('name', 'like', '%' . $name . '%');
-
         }
 
         return ResponseFormatter::success(
@@ -97,7 +96,8 @@ class CompanyController extends Controller
 
             $company->update([
                 'name' => $request->name,
-                'logo' => $path
+                'logo' => isset($path) ? $path : $company->logo,
+
             ]);
 
             return ResponseFormatter::success($company, 'Company updated');

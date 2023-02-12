@@ -40,7 +40,6 @@ class TeamController extends Controller
         if ($name) {
 
             $teams->where('name', 'like', '%' . $name . '%');
-
         }
 
         return ResponseFormatter::success(
@@ -90,7 +89,7 @@ class TeamController extends Controller
 
             $team->update([
                 'name' => $request->name,
-                'icon' => $path,
+                'icon' => isset($path) ? $path : $team->icon,
                 'company_id' => $request->company_id
             ]);
 
@@ -100,11 +99,12 @@ class TeamController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         try {
             $team = Team::find($id);
 
-            if(!$team){
+            if (!$team) {
                 throw new Exception('Team not found');
             }
 
@@ -113,7 +113,6 @@ class TeamController extends Controller
             return ResponseFormatter::success('Team deleted');
         } catch (Exception $e) {
             return ResponseFormatter::error($e->getMessage(), 500);
-            
         }
     }
 }
